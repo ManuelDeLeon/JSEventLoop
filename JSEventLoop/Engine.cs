@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 
 namespace JSEventLoop
@@ -10,10 +9,10 @@ namespace JSEventLoop
     {
         private static List<Action> pendingActions = new List<Action>();
         private static List<Action> pendingJobs = new List<Action>();
+
         public static void run(Action action)
         {
             action();
-
             runPending();
         }
 
@@ -22,13 +21,11 @@ namespace JSEventLoop
             while (pendingActions.Any() || pendingJobs.Any())
             {
                 runJobs();
-                
+                Thread.Sleep(4);
                 var actionsToRun = pendingActions.ToList();
                 pendingActions.Clear();
                 foreach (var action in actionsToRun)
                 {
-                    runJobs();
-                    Thread.Sleep(1);
                     action();
                 }
             }

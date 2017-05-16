@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JSEventLoop
 {
@@ -20,9 +16,14 @@ namespace JSEventLoop
                     }, 1000);
                 });
 
-                myFirstPromise.then((successMessage) => {
-                    Console.WriteLine("Yay! " + successMessage);
-                });
+                myFirstPromise
+                    .then((successMessage) => {
+                        Console.WriteLine("Yay! " + successMessage);
+                    })
+                    .then((successMessage) => {
+                        Console.WriteLine("More!");
+                    })
+                    ;
 
                 Console.WriteLine("End of block");
             });
